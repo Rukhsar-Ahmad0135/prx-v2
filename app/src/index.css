@@ -1,0 +1,139 @@
+@import "tailwindcss";
+@import "@fontsource-variable/archivo";
+
+@theme {
+  --color-brand: #0C8873;
+  --color-brand-dark: #0a6e5e;
+  --color-brand-soft: #e9f5f2;
+  --color-accent: #F97A20;
+  --color-accent-dark: #e06a15;
+  --color-ink: #0E1B26;
+  --color-muted: #5c6b68;
+  --color-deep: #0D1B26;
+  --color-paper: #ffffff;
+  --color-line: rgba(14, 27, 38, 0.14);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: #fff;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: "Archivo Variable", system-ui, -apple-system, sans-serif;
+  color: var(--color-ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(12, 136, 115, 0.22);
+}
+
+.wrap {
+  width: 100%;
+  max-width: 80rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 2rem;
+  }
+}
+
+/* Buttons */
+.btn-accent,
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.85rem 1.7rem;
+  font-size: 0.8rem;
+  font-weight: 800;
+  transition: all 0.3s ease;
+}
+.btn-accent {
+  background: var(--color-accent);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(249, 122, 32, 0.28);
+}
+.btn-accent:hover {
+  background: var(--color-accent-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(249, 122, 32, 0.36);
+}
+.btn-outline {
+  border: 1.5px solid rgba(14, 27, 38, 0.3);
+  color: var(--color-ink);
+}
+.btn-outline:hover {
+  border-color: var(--color-ink);
+  transform: translateY(-2px);
+}
+
+/* Marquee */
+.marquee-track {
+  animation-name: marquee-x;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
+}
+@keyframes marquee-x {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Rolling label on hover: label slides up, duplicate slides in from below */
+.roll {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.roll > span {
+  display: block;
+  transition: transform 0.3s ease;
+}
+.roll > span:last-child {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+}
+a:hover .roll > span:first-child,
+button:hover .roll > span:first-child {
+  transform: translateY(-100%);
+}
+a:hover .roll > span:last-child,
+button:hover .roll > span:last-child {
+  transform: translateY(0);
+}
+
+/* Row hover fill layers: first sweep (brand) then delayed deep fill */
+.row-fill {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+.group:hover .row-fill {
+  transform: scaleX(1);
+}
+.group:hover .fill-deep {
+  transition-delay: 0.12s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .marquee-track {
+    animation: none;
+  }
+}
